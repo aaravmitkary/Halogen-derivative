@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halogen Derivatives - Level 1 Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    .question { margin-bottom: 30px; }
+    .options button { display: block; margin: 5px 0; padding: 10px; width: 100%; text-align: left; }
+    .correct { background-color: #c8e6c9; }
+    .incorrect { background-color: #ffcdd2; }
+    .hidden { display: none; }
+    #summary { margin-top: 40px; padding: 20px; border: 1px solid #ccc; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>Halogen Derivatives - Level 1 (MCQ Test)</h1>
+  <div id="quiz"></div>
+  <div id="summary" class="hidden"></div>
+  <script>
+    const questions = [
+      
+    {
+        question: "1. The SN2 reactivity order for halides is:",
+        options: ['R–F > R–Cl > R–Br > R–I', 'R–I > R–Br > R–Cl > R–F', 'R–Br > R–I > R–Cl > R–F', 'R–Cl > R–Br > R–I > R–F'],
+        answer: 1
+    },
+    
+    {
+        question: "2. Vinylic halides are unreactive towards nucleophilic substitution because of the following except:",
+        options: ['C–halogen bond is strong', 'Halogen is bonded to sp² carbon', 'Resonance develops double bond character', 'Halide ions are not good leaving groups'],
+        answer: 3
+    },
+    
+    {
+        question: "3. Which of the following is most reactive towards nucleophilic substitution?",
+        options: ['CH₂=CH–Cl', 'C₆H₅Cl', 'CH₃CH=CH–Cl', 'ClCH₂–CH=CH₂'],
+        answer: 3
+    },
+    
+    {
+        question: "4. The reaction of 4-bromobenzyl chloride with NaCN in ethanol leads to:",
+        options: ['4-Bromobenzyl cyanide', '4-Cyanobenzyl chloride', '4-Cyanobenzyl cyanide', '4-Bromo-2-cyanobenzyl chloride'],
+        answer: 0
+    },
+    
+    {
+        question: "5. Which compound undergoes SN1 reaction most easily?",
+        options: ['CH₃CH₂Cl', '(CH₃)₃CCl', 'CH₃CHClCH₃', 'C₆H₅CH₂Cl'],
+        answer: 1
+    },
+    
+    {
+        question: "6. Which of the following will not undergo nucleophilic aromatic substitution?",
+        options: ['I, II and III', 'II and IV', 'III and IV', 'Only IV'],
+        answer: 3
+    },
+    
+    {
+        question: "7. Arrange the following alkyl chlorides in order of decreasing reactivity in an SN1 reaction:",
+        options: ['C(CH₃)₃Cl > CH₃CHClCH₃ > CH₃CH₂Cl', 'CH₃CH₂Cl > CH₃CHClCH₃ > C(CH₃)₃Cl', 'CH₃CHClCH₃ > C(CH₃)₃Cl > CH₃CH₂Cl', 'CH₃CH₂Cl > C(CH₃)₃Cl > CH₃CHClCH₃'],
+        answer: 0
+    },
+    
+    {
+        question: "8. Which reaction will yield an optically active product?",
+        options: ['CH₃CH₂Cl + OH⁻ → CH₃CH₂OH', 'CH₃CH(Br)CH₃ + OH⁻ → CH₃CH(OH)CH₃', 'CH₃CH(Br)CH₂CH₃ + OH⁻ → CH₃CH(OH)CH₂CH₃', 'CH₃CHBrCH₃ + OH⁻ → CH₃CH(OH)CH₃'],
+        answer: 2
+    },
+    
+    ];
+
+    let score = 0, correct = 0, incorrect = 0, startTime = Date.now();
+
+    const quizDiv = document.getElementById('quiz');
+
+    questions.forEach((q, index) => {
+      const qDiv = document.createElement('div');
+      qDiv.className = 'question';
+      qDiv.innerHTML = `<p>${q.question}</p>`;
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'options';
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (btn.disabled) return;
+          const allBtns = optionsDiv.querySelectorAll('button');
+          allBtns.forEach(b => b.disabled = true);
+          if (i === q.answer) {
+            btn.classList.add('correct');
+            score += 4;
+            correct++;
+          } else {
+            btn.classList.add('incorrect');
+            allBtns[q.answer].classList.add('correct');
+            score -= 1;
+            incorrect++;
+          }
+          if (index === questions.length - 1) showSummary();
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(optionsDiv);
+      quizDiv.appendChild(qDiv);
+    });
+
+    function showSummary() {
+      const timeTaken = Math.round((Date.now() - startTime) / 1000);
+      const attempted = correct + incorrect;
+      const summary = document.getElementById('summary');
+      summary.classList.remove('hidden');
+      summary.innerHTML = `
+        <h2>Test Summary</h2>
+        <p>Attempted: ${attempted} / ${questions.length}</p>
+        <p>Correct: ${correct}</p>
+        <p>Incorrect: ${incorrect}</p>
+        <p>Score: ${score}</p>
+        <p>Time Taken: ${timeTaken} seconds</p>
+      `;
+    }
+  </script>
+</body>
+</html>
